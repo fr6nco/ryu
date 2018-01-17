@@ -3306,6 +3306,58 @@ class OFPActionPushMpls(OFPAction):
                       self.type, self.len, self.ethertype)
 
 
+@OFPAction.register_action_type(ofproto.OFPAT_INC_SEQ,
+                                ofproto.OFP_ACTION_INC_SEQ)
+class OFPActionIncSeq(OFPAction):
+    """
+    INC Sequence number Action
+    This action increases the sequence number in the TCP field.
+    ================ ======================================================
+    Attribute        Description
+    ================ ======================================================
+    increment        Increment
+    ================ ======================================================
+
+    """
+    def __init__(self, increment):
+        super(OFPActionIncSeq, self).__init__()
+        self.increment = increment
+
+    @classmethod
+    def parser(cls, buf, offset):
+        (increment) = struct.unpack_from(ofproto.OFP_ACTION_INC_SEQ_PACK_STR, buf, offset)
+        return cls(increment)
+
+    def serialize(self, buf, offset):
+        msg_pack_into(ofproto.OFP_ACTION_INC_SEQ_PACK_STR, buf, offset, self.increment)
+
+
+@OFPAction.register_action_type(ofproto.OFPAT_INC_ACK,
+                                ofproto.OFP_ACTION_INC_ACK)
+class OFPActionIncAck(OFPAction):
+    """
+    INC Acknowledge number Action
+    This action increases the acknowledge number in the TCP field.
+    ================ ======================================================
+    Attribute        Description
+    ================ ======================================================
+    increment        Increment
+    ================ ======================================================
+
+    """
+    def __init__(self, increment):
+        super(OFPActionIncAck, self).__init__()
+        self.increment = increment
+
+    @classmethod
+    def parser(cls, buf, offset):
+        (increment) = struct.unpack_from(ofproto.OFP_ACTION_INC_ACK_PACK_STR, buf, offset)
+        return cls(increment)
+
+    def serialize(self, buf, offset):
+        msg_pack_into(ofproto.OFP_ACTION_INC_ACK_PACK_STR, buf, offset, self.increment)
+
+
 @OFPAction.register_action_type(ofproto.OFPAT_POP_VLAN,
                                 ofproto.OFP_ACTION_HEADER_SIZE)
 class OFPActionPopVlan(OFPAction):
