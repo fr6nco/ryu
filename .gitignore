@@ -3,7 +3,7 @@
 *.egg-info/
 build/
 dist/
-
+.idea
 GTAGS
 GRTAGS
 GPATH
